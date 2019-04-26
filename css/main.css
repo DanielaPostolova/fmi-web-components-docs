@@ -1,0 +1,174 @@
+nav {
+	height: 100%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 20%;
+	background-color: #00313a;
+	padding-top: 20px;
+}
+
+h2 {
+	color: #00313a;
+	opacity: 0.7;
+}
+
+p, li {
+	margin-top: 30px;
+	text-align: justify;
+}
+
+ol, ul {
+	padding-left: 30px;
+}
+
+.section-title {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-decoration: none;
+	font-size: 1.5em;
+	color: #00313a;
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.nav-title {
+	color: #c4dfe6;
+	margin-bottom: 35px;
+	font-size: 26px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-decoration: none;
+	padding: 5px 20px;
+}
+
+.nav-item {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-decoration: none;
+	font-size: 15px;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 20px 0;
+	color: #c4dfe6;
+	z-index: inherit;
+	padding: 5px 20px;
+}
+
+.nav-item:hover, .nav-item.active {
+	background-color: rgba(176, 177, 180, 0.3);
+}
+
+section {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-decoration: none;
+	font-size: 14px;
+	line-height: 1.8em;
+	position: relative;
+	width: 70%;
+	left: 20%;
+	right: 50px;
+	margin: 30px;
+	padding: 0 1em;
+	color: black;
+}
+
+.note {
+	background-color: rgb(250, 200, 183);
+	padding: 10px;
+	border-radius: 8px;
+}
+
+@media only screen and (max-width: 930px) {
+	.nav-title {
+		margin-bottom: 25px;
+		font-size: 18px;
+		padding: 5px 15px;
+	}
+	.nav-item {
+		font-size: 12px;
+		padding: 5px 15px;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	.nav-title {
+		margin-bottom: 15px;
+		font-size: 13px;
+		padding: 5px 10px;
+	}
+	.nav-item {
+		padding: 5px 10px;
+		font-size: 10px;
+	}
+}
+
+pre {
+	white-space: pre-wrap;
+	background-color: rgb(223, 221, 221);
+	color: black;
+	display: block;
+	padding: 5px 15px;
+	margin: 15px 0;
+	font-size: 13px;
+	line-height: 1.8em;
+	word-wrap: break-word;
+	border: 1px solid #cccccc;
+	border-radius: 8px;
+}
+
+code {
+	white-space: pre-wrap;
+	background-color: transparent;
+}
+
+.inline-code {
+	background-color: rgb(223, 221, 221);
+	white-space: nowrap;
+	padding: 2px 4px;
+	border-radius: 8px;
+	border: solid 1px rgb(189, 188, 188);
+	margin: 2px;
+}
+
+.tag, .keyword, .number {
+	color: #07a;
+}
+
+.punctuation, .doctype {
+	color: rgb(104, 104, 104);
+}
+
+.comment {
+	color: rgb(0, 167, 0);
+}
+
+.attr-value, .string {
+	color: green;
+}
+
+.attr-name, .property {
+	color: rgb(221, 17, 221);
+}
+
+.function {
+	color: red;
+}
+
+.selector {
+	color: rgb(255, 174, 0);
+}
+
+footer {
+	display: block;
+	position: relative;
+	left: 24%;
+	width: 69%;
+	border-top: #00313a solid 1px;
+}

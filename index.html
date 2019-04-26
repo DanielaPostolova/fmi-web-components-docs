@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="https://code.jquery.com/jquery-3.4.0.min.js"
+		integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+	<script src="./js/main.js"></script>
+</head>
+
+<body>
+	<nav>
+		<h1>
+			<a href="#Overview" class="nav-title">Уеб компоненти</a>
+		</h1>
+		<a class="nav-item" href="#ConceptionsAndUsage">Конципции и употреба</a>
+		<a class="nav-item" href="#CustomElements">Custom elements</a>
+		<a class="nav-item" href="#ShadowDOM">Shadow DOM</a>
+		<a class="nav-item" href="#HTMLTemplates">HTML шаблони</a>
+	</nav>
+	<section id="Overview">
+		<p>Уеб компонентите обединяват група технологии, които позволяват създаването на преизползваеми персонални
+			елементи, като тяхната функционалност е енкапсулирана от останалия код и затова можем да ги използваме без ограничения
+			в приложенията си.</p>
+	</section>
+	<section id="ConceptionsAndUsage">
+		<h1>
+			<a href="#ConceptionsAndUsage" class="section-title">Конципции и употреба</a>
+		</h1>
+		<p>Като софтуерни разработчици, знаем, че преизползването на код е добра идея. Това обаче не
+			винаги е толкова лесно, когато говорим за персонализирани маркиращи структури. Нека помислим например за
+			сложния HTML и всички свързани с него стилове и скриптовe, коите се налага да пишем, за да заредим
+			специфични за нашите нужди UI контроли и как многократното им използване може да превърне страницата ни в
+			бъркотия, ако не внимаваме.</p>
+		<p>Уеб компонентите целят да решат точно такива проблеми. Те се състоят от три основни технологии, които се
+			използват заедно за създаването на гъвкави персонални елементи с енкапсулирана функционалност и които могат
+			да се използват многократно без притеснения за колизии.</p>
+		<p>Тези технологии са:
+			<ul>
+				<li>
+					<span class="bold">Custom elements</span> - група JavaScript API-та, които позволяват дефинирането
+					на персонални елементи,
+					както и тяхното поведение.
+				</li>
+				<li>
+					<span class="bold">Shadow DOM</span> - група JavaScript API-та за &bdquo;закачане&ldquo; на
+					енкапсулирано Shadow DOM дърво към елемент и контролиране на функционалността му. То се зарежда
+					отделно от основното DOM дърво. По този начин свойствата на елемента остават скрити и могат да
+					включват скриптове и стилове без притеснения от колизии с други части от документа.
+				</li>
+				<li>
+					<span class="bold">HTML шаблони</span> - елементите 
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">template</span><span class="punctuation">&gt;</span>
+					</span> и 
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">slot</span><span class="punctuation">&gt;</span>
+					</span> 
+					позволяват	писането на маркиращи шаблони, които не се визуализират в заредената страница. Така те могат да
+					бъдат изпозвани многократно като основа за персонализиран структурен елемент.
+				</li>
+			</ul>
+		</p>
+		<p>Основният подход за имплементиране на уеб компоненти изглежда най-общо така:
+			<ol>
+				<li>
+					Създаване на клас или функция, в която са специфицирани функционалностите на уеб компонента. Ако е
+					клас, се използва синтаксиса на ECMAScript 2015 за класове.
+				</li>
+				<li>
+					Регистриране на новия персонален елемент, използвайки <span	class="inline-code">CustomElementRegistry.define()</span> 
+					метода, на който се подава името на елемента, който да бъде дефиниран, класа или функцията, които съдържат
+					функционалността и опционално елемент, който наследява.
+				</li>
+				<li>
+					Ако е необходимо се закача shadow DOM към персоналния елемент с помощта на <span class="inline-code">Element.attachShadow()</span>
+					метод. Добавят се дъщерни елементи, event listener-и и др. към shadow DOM, използвайки традиционните DOM методи.
+				</li>
+				<li>
+					Ако е необходимо, се дефинира HTML шаблон с помощта на 
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">template</span><span class="punctuation">&gt;</span>
+					</span> и 
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">slot</span><span class="punctuation">&gt;</span>
+					</span> . 
+					Отново се използват стандартните DOM методи за да се клонира шаблона и да се закачи към shadow DOM.
+				</li>
+				<li>
+					Персоналният елемент е готов за използване, където и да е на страницата, точно като всеки друг HTML
+					елемент.
+				</li>
+			</ol>
+		</p>
+	</section>
+	<section id="CustomElements">
+		<h1>
+			<a href="#CustomElements" class="section-title">Custom elements</a>
+		</h1>
+		<h2>(Персонални елементи)</h2>
+		<p>
+			Персонализираните елементи на уеб документа се контролират от <span	class="italic">CustomElementRegistry</span> 
+			обект. Този обект позволява регистрирането на специфични елементи, връща информация за това, какви персонализирани
+			компоненти са вече регистрирани и т.н.
+		</p>
+		<p class="note">
+			<span class="bold">Забележка:</span> Персонализираните елементи се поддържат от Firefox, Chrome и Opera.
+			Safary за момента поддържа само автономни персонализирани компоненти, а за Edge се работи върху имплементация.
+		</p>
+		<p>
+			За регистриране на персонализиран елемент се използва метода <span class="inline-code">CustomElementRegistry.define()</span>.
+			Аргументите, които приема са следните:
+			<ul>
+				<li>
+					<span>DOMString</span>, представящ името на елемента, който искаме да дефинираме. Имената на
+					персонализираните елементи <span class="bold">трябва</span> да съдържат тире в себе си, те не 
+					могат да се състоят само от една дума.
+				</li>
+				<li>
+					<span>Класов</span> обект, който дефинира поведението на елемента.
+				</li>
+				<li>
+					Опционално, обект с настройки, съдържащ <span class="italic">extends</span> пропърти, което специфицира вграден
+					елемент, от който персонализираният елемент наследява.
+				</li>
+			</ul>
+		</p>
+		<p>Например, можем да дефинираме персонализиран елемент така:</p>
+		<pre><code><span>customElements.<span class="function">define</span><span class="punctuation">(</span><span class="string">'word-count'</span><span class="punctuation">,</span> WordCount<span class="punctuation">, {</span> extends<span class="punctuation">:</span> <span class="string">'p'</span> <span class="punctuation">; });</span></code></pre>
+		<p>
+			Елементът се казва <span class="inline-code">word-count</span>, неговият класов обект е
+			<span class="inline-code">WordCount</span> и разширява
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>
+			</span>
+			елемента.
+		</p>
+		<p>
+			За класовият обект на персонализирания елемент е използван синтаксис за красове от ES 2015 стандарта.
+			Например,
+			<span class="inline-code">WordCount</span> е структуриран така:
+		</p>
+		<pre><code><span class="keyword">class</span> WordCount <span class="keyword">extends</span> HTMLParagraphElement {
+	<span class="comment">// Element functionality written in here</span>
+	...
+}</code></pre>
+		<p>
+			Това е прост пример, но ние можем да направим много повече. Възможно е да се дефинират специфични lifecycle
+			callbacks в класа, които да се изпълняват на определени точки в живота на елемента. Например 
+			<span class="italic">connectedCallback</span> се изпълнява всеки път, когато елементът се закача на друг елемент, 
+			който свързан с дървото. <span class="italic">attributeChangedCallback</span> пък се изпълнява, когато един от 
+			атрибутите на персонализиран елемент се добави, премахне или промени. За повече информация:
+			<a
+				href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks">
+				Using the lifecycle callback
+			</a>.
+		</p>
+		<p>
+			Има два типа персонализирани елементи:
+			<ul>
+				<li>
+					<span class="bold">Автономни персонализирани елементи</span> - те са самостоятелни и не наследяват
+					от стандартни HTML елементи.
+					Те се използват на страницата като стандарните HTML елементи. Например
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">popup-info</span><span class="punctuation">&gt;</span>
+					</span>, или
+					<span class="inline-code">
+						document.<span class="function">createElement</span><span class="punctuation">(</span><span class="string">'popup-info'</span><span class="punctuation">)</span>
+					</span>.
+				</li>
+				<li>
+					<span class="bold">Персонализирани вградени елементи</span> - те наследяват някой от съществеващите
+					HTML елементи. За да създадем персонализиран вграден елемент, трябва да специфицираме, кой елемент ще разширява той 
+					(както в примера по-горе). Те се използват, като се	използва основния HTML елемент, но се посочва името на 
+					песронализирания елемент с атрибута <span class="italic">is</span>. Например, 
+					<span class="inline-code">
+						<span class="punctuation">&lt;</span><span class="tag">p</span> <span
+							class="attr-name">is</span><span class="punctuation">=</span><span
+							class="attr-value">"word-count"</span><span class="punctuation">&gt;</span>
+					</span>, или
+					<span class="inline-code">
+						document.<span class="function">createElement</span><span class="punctuation">(</span><span class="string">'p'</span><span class="punctuation">)</span>
+						<span class="punctuation">, {</span> <span class="property">is</span><span class="punctuation">:</span> <span class="string">'word-count'</span> <span class="punctuation">})</span>
+					</span>.
+				</li>
+			</ul>
+		</p>
+	</section>
+	<section id="ShadowDOM">
+		<h1>
+			<a href="#ShadowDOM" class="section-title">Shadow DOM</a>
+		</h1>
+		<p>
+			Важен аспект от уеб компонентите е енкапсулацията - възможността да запазим структура, стил и поведение
+			скрити и отделени от останалия
+			код на страницата. По този начин няма да има конфликти между различни части и кодът може да остане красив и
+			чист. Shadow DOM е ключова
+			част от това. Той предоставя начин за „закачане“ на скрит отделен DOM към елемент.
+		</p>
+		<p class="note">
+			<span class="bold">Забележка:</span> Shadow DOM се поддържа от Firefox (63 и по-късни версии), Chrome, Opera
+			и Safari. Разработва се имплементация за Edge.
+		</p>
+		<p>
+			Нека да разгледаме следния HTML фрагмент:
+		</p>
+		<pre><code><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="punctuation">&lt;</span><span class="tag">html</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">head</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;</span><span class="tag">meta</span> <span class="attr-name">charset</span><span class="punctuation">=</span><span class="attr-value">"utf-8"</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;</span><span class="tag">title</span><span class="punctuation">&gt;</span>Simple DOM example<span class="punctuation">&lt;/</span><span class="tag">title</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;/</span><span class="tag">head</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">body</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;</span><span class="tag">section</span><span class="punctuation">&gt;</span>
+			<span class="punctuation">&lt;</span><span class="tag">img</span> <span class="attr-name">src</span><span class="punctuation">=</span><span class="attr-value">"dinosaur.png"</span> <span class="attr-name">alt</span><span class="punctuation">=</span><span class="attr-value">"A red Tyrannosaurus Rex: A two legged dinosaur standing upright like a human, with small arms, and a large head with lots of sharp teeth."</span><span class="punctuation">&gt;</span>
+			<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>Here we will add a link to the <span class="punctuation">&lt;</span><span class="tag">a</span> <span class="attr-name">href</span><span class="attr-value"><span class="punctuation">=</span><span class="attr-value">"https://www.mozilla.org/"</span><span class="punctuation">&gt;</span>Mozilla homepage<span class="punctuation">&lt;/</span><span class="tag">a</span><span class="punctuation">&gt;&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;/</span><span class="tag">section</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;/</span><span class="tag">body</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">html</span><span class="punctuation">&gt;</span></code></pre>
+		<p>Този фрагмент ще предизвика следната DOM структура: </p>
+		<img src="https://mdn.mozillademos.org/files/14559/dom-screenshot.png" alt="Cannot render picture.">
+		<p>
+			Shadow DOM позволява скрити DOM дървета да бъдат прикачени към елементи от основното DOM дърво. Това shadow
+			DOM дърво започва с shadow root (корен на дърото),
+			под който могат да бъдат закачени всякакви елементи по същия начин както и при станадртното DOM дърво.
+		</p>
+		<img src="https://mdn.mozillademos.org/files/15788/shadow-dom.png" alt="Cannot render picture."
+			style="width: 80%; margin: 0 10%;">
+		<p>
+			Някои важни термини, свързани с DOM:
+			<ul>
+				<li>
+					<span class="bold">Shadow host</span>: Връх от основното DOM дърво, за който е закачен shadow DOM.
+				</li>
+				<li>
+					<span class="bold">Shadow tree</span>: DOM дърво, което е част от shadow DOM.
+				</li>
+				<li>
+					<span class="bold">Shadow boundary</span>: Мястото, където DOM дърво приключва и започва основното
+					DOM дърво.
+				</li>
+				<li>
+					<span class="bold">Shadow root</span>: Върхът, който е корен на shadow дърво.
+				</li>
+			</ul>
+		</p>
+		<p>
+			Върховете от Shadow DOM дървото могат да се променят по абсолютно същия начин, както тези, които не са част
+			от него. Например, прибавянето на деца или задаването
+			на стойност на атрибут, стилизирането на индивидуални върхове със <span class="italic">element.style.foo</span>, или
+			добавянето на стилове към цялото shadow DOM дърво в
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">style</span><span class="punctuation">&gt;</span>
+			</span>
+			елемент. Разликата е, че кодът от shadow DOM не може да повляе на нищо извън него, което позволява
+			енкапсулация.
+		</p>
+		<p>
+			Shadow DOM не е нищо ново по своята концепция - браузърите го използват от дълго време, за да енкапсулират
+			вътрешни структури за някой елемент. Например
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">video</span><span class="punctuation">&gt;</span>
+			</span>
+			елементът със контролите по подразбиране от браузъра. Всичко, което се вижда в DOM дървото е
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">video</span><span class="punctuation">&gt;</span>
+			</span>
+			елемент, но той съдържа серия от бутони и други контроли вътре в свой shadow DOM. Спецификацията на shadow
+			DOM всъщност позволява манипулация на такова
+			shadow DOM дърво за твои собствени елементи.
+		</p>
+	</section>
+	<section id="HTMLTemplates">
+		<h1>
+			<a href="#HTMLTemplates" class="section-title">HTML шаблони</a>
+		</h1>
+		<p>
+			Когато се налага използването на една и съща маркираща структура няколко пъти на уеб страница, по-логично е
+			да направим някакъв вид шаблон, отколкото да
+			повтаряме структурата отново и отново. Това е било възможно и преди, но сега е една идея по-лесно чрез HTML
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">template</span><span class="punctuation">&gt;</span>
+			</span>
+			елемент (който се поддържа от модерните браузъри). Този елемент и неговото съдържание не се рендерират в
+			DOM, но могат лесно да се реферират в JavaScript код.
+		</p>
+		<p>Нека видим един прост пример:</p>
+		<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">template</span> <span class="attr-name">id</span><span class="punctuation">=</span><span class="attr-value">"my-paragraph"</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>My paragraph<span class="punctuation">&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">template</span><span class="punctuation">&gt;</span></code></pre>
+		<p>
+			Това няма да се появи на твоята страница, докато не го реферираш чрез JavaScript и не го закачиш за DOM, 
+			използвайки например:
+		</p>
+		<pre><code class=" language-js"><span class="keyword">let</span> template <span class="punctuation">=</span> document<span class="punctuation">.</span><span class="function">getElementById</span><span class="punctuation">(</span><span class="string">'my-paragraph'</span><span class="punctuation">);</span>
+<span class="keyword">let</span> templateContent <span class="punctuation">=</span> template<span class="punctuation">.</span>content<span class="punctuation">;</span>
+document<span class="punctuation">.</span>body<span class="punctuation">.</span><span class="function">appendChild</span><span class="punctuation">(</span>templateContent<span class="punctuation">);</span></code></pre>
+		<p>Шаблоните са полезни и сами по себе си, но работят още по-добре с уеб компоненти. Нека дефинираме уеб компонент, който използна нашия шаблон като съдържание на своя shadow DOM. Ще го наречем 
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
+			</span>:
+		</p>
+		<pre><code class="language-js">customElements<span class="punctuation">.</span><span class="function">define</span><span class="punctuation">(</span><span class="string">'my-paragraph'</span><span class="punctuation">,</span>
+	<span class="keyword">class extends</span> HTMLElement <span class="punctuation">{</span>
+		<span class="function">constructor</span><span class="punctuation">() {</span>
+			<span class="keyword">super</span><span class="punctuation">();</span>
+			<span class="keyword">let</span> template <span class="punctuation">=</span> document<span class="punctuation">.</span><span class="function">getElementById</span><span class="punctuation">(</span><span class="string">'my-paragraph'</span><span class="punctuation">);</span>
+			<span class="keyword">let</span> templateContent <span class="punctuation">=</span> template<span class="punctuation">.</span>content<span class="punctuation">;</span>
+				
+			<span class="keyword">const</span> shadowRoot <span class="punctuation">=</span> <span class="keyword">this</span><span class="punctuation">.</span><span class="function">attachShadow</span><span class="punctuation">({</span>mode<span class="punctuation">:</span> <span class="string">'open'</span><span class="punctuation">})</span>
+				<span class="punctuation">.</span><span class="function">appendChild</span><span class="punctuation">(</span>templateContent<span class="punctuation">.</span><span class="function">cloneNode</span><span class="punctuation">(</span><span class="keyword">true</span><span class="punctuation">));</span>
+		<span class="punctuation">}</span>
+	<span class="punctuation">}</span>
+<span class="punctuation">);</span></code></pre>
+		<p>Ключово тук е, че закачаме копие на съдържанието на шаблона към shadow root, който създаваме чрез 
+			<span class="inline-code">Node.cloneNode</span> метода.
+		</p>
+		<p>
+			Понеже закачаме съдържанието за shadow DOM, ние можем да добавим и информация за стила в шаблона, като използваме 
+			<span class="inline-code">
+				<span class="punctuation">&lt;</span><span class="tag">style</span><span class="punctuation">&gt;</span>
+			</span>
+			елемент, който е енкапсулиран в нашия специфичен елемент. Това няма да работи, ако просто го добавим към стандартния DOM.
+		</p>
+		<p>
+			Например:
+		</p>
+		<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">template</span> <span class="attr-name">id</span><span class="punctuation">=</span><span class="attr-value">"my-paragraph"</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>My paragraph<span class="punctuation">&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">template</span><span class="punctuation">&gt;</span>
+
+<span class="punctuation">&lt;</span><span class="tag">style</span><span class="punctuation">&gt;</span><span class="style"><span class="language-css">
+	<span class="selector">p</span> <span class="punctuation">{</span>
+		<span class="property">color</span><span class="punctuation">:</span> white<span class="punctuation">;</span>
+		<span class="property">background-color</span><span class="punctuation">:</span> <span class="hexcode">#666</span><span class="punctuation">;</span>
+		<span class="property">padding</span><span class="punctuation">:</span> <span class="number">5</span><span class="unit">px</span><span class="punctuation">;</span>
+	<span class="punctuation">}</span>
+</span></span><span class="punctuation">&lt;/</span><span class="tag">style</span><span class="punctuation">&gt;</span></code></pre>
+	<p>
+		Сега можем да използваме елемента, като просто го добавим в HTML документа:
+	</p>
+	<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span><span class="punctuation">&lt;/</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span></code></pre>
+	<p class="note">
+		<span class="bold">Забележка:</span> Шаблоните са добре поддържани в браузърите.
+	</p>
+	<p>
+		Дотук добре, но елементът не е много гъвкав. Ние визуализираме просто парче текст, което означава, че в момента елементът ни е дори по-безполезен от обикновен параграф таг. 
+		Възможно е обаче да визуализираме различен текст във всяка инстанция на елемента по ясен и декларативен начин, като използваме 
+		<span class="inline-code">
+			<span class="punctuation">&lt;</span><span class="tag">slot</span><span class="punctuation">&gt;</span>
+		</span> елемент. 
+		Това е по-лиминирано откъм поддръжка, отколкото 
+		<span class="inline-code">
+			<span class="punctuation">&lt;</span><span class="tag">template</span><span class="punctuation">&gt;</span>
+		</span>. 
+		Поддържа се от Chrome 53, Opera 40, Safari 10, Firefox 59, но все още не от Edge.
+	</p>
+	<p>
+		<span class="italic">Slot</span> елементите се идентифицират чрез техния <span class="italic">name</span> атрибут. Те позволяват дефиниране на placeholder-и в шаблон, които могат да бъдат попълнени с 
+		какъвто и да е структурен фрагмент.
+	</p>
+	<p>
+		Нека добавим slot в тривиалния ни пример:
+	</p>
+	<pre><code><span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;&lt;</span><span class="tag">slot</span> <span class="attr-name">name</span><span class="punctuation">=</span><span class="attr-value">"my-text"</span><span class="punctuation">&gt;</span>My default text<span class="punctuation">&lt;/</span><span class="tag">slot</span><span class="punctuation">&gt;&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span></code></pre>
+	<p>
+		Ако съдържанието на <span class="italic">slot</span> не е дефинирано при добавянето на елемента в структурата или ако браузърът не поддържа <span class="italic">slot</span>,  
+		<span class="inline-code">
+			<span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
+		</span> 
+		съдържа текста по подразбиране „My default text“.
+	</p>
+	<p>
+		За да се дефинира съдържанието на <span class="italic">slot</span> елемента, добавяме HTML структура в 
+		<span class="inline-code">
+			<span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
+		</span> 
+		елемента със <span class="italic">slot</span> атрибут, чиято стойност съвпада с името на <span class="italic">slot</span> елемента, който искаме да попълним. Например:
+	</p>
+	<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">span</span> <span class="attr-name">slot</span><span class="punctuation">=</span><span class="attr-value">"my-text"</span><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span>Let's have some different text!<span class="punctuation">&lt;/</span><span class="tag">span</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span></code></pre>
+	<p>или</p>
+	<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">ul</span> <span class="attr-name">slot</span><span class="punctuation">=</span><span class="attr-value">"my-text"</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;</span><span class="tag">li</span><span class="punctuation">&gt;</span>Let's have some different text!<span class="punctuation">&lt;/</span><span class="tag">li</span><span class="punctuation">&gt;</span>
+		<span class="punctuation">&lt;</span><span class="tag">li</span><span class="punctuation">&gt;</span>In a list<span class="punctuation">&lt;/</span><span class="tag">li</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;/</span><span class="tag">ul</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span></code></pre>	
+	</section>
+	<footer>
+		<p>
+			<div>References:</div>
+			<div><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> Web Components: <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">https://developer.mozilla.org/en-US/docs/Web/Web_Components</a></div>
+			<div><span class="punctuation">[</span><span class="number">2</span><span class="punctuation">]</span> Custom Elements: <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements</a></div>
+			<div><span class="punctuation">[</span><span class="number">3</span><span class="punctuation">]</span> Shadow Dom: <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM">https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM</a></div>
+			<div><span class="punctuation">[</span><span class="number">4</span><span class="punctuation">]</span> HTML templates: <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots">https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots</a></div>
+		</p>
+	</footer>
+</body>
+
+</html>
