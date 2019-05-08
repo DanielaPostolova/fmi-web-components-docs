@@ -172,3 +172,8 @@ footer {
 	width: 69%;
 	border-top: #00313a solid 1px;
 }
+
+.authorInfo {
+	font-style: italic;
+	text-align: right;
+}
