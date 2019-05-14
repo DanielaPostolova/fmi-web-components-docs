@@ -141,7 +141,7 @@
 			елемента.
 		</p>
 		<p>
-			За класовият обект на персонализирания елемент е използван синтаксис за красове от ES 2015 стандарта.
+			За класовият обект на персонализирания елемент е използван синтаксис за класове от ES 2015 стандарта.
 			Например,
 			<span class="inline-code">WordCount</span> е структуриран така:
 		</p>
@@ -153,7 +153,7 @@
 			Това е прост пример, но ние можем да направим много повече. Възможно е да се дефинират специфични lifecycle
 			callbacks в класа, които да се изпълняват на определени точки в живота на елемента. Например 
 			<span class="italic">connectedCallback</span> се изпълнява всеки път, когато елементът се закача на друг елемент, 
-			който свързан с дървото. <span class="italic">attributeChangedCallback</span> пък се изпълнява, когато един от 
+			който е свързан с дървото. <span class="italic">attributeChangedCallback</span> пък се изпълнява, когато един от 
 			атрибутите на персонализиран елемент се добави, премахне или промени. За повече информация:
 			<a
 				href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks">
@@ -185,7 +185,7 @@
 							class="attr-value">"word-count"</span><span class="punctuation">&gt;</span>
 					</span>, или
 					<span class="inline-code">
-						document.<span class="function">createElement</span><span class="punctuation">(</span><span class="string">'p'</span><span class="punctuation">)</span>
+						document.<span class="function">createElement</span><span class="punctuation">(</span><span class="string">'p'</span><span class="punctuation"></span>
 						<span class="punctuation">, {</span> <span class="property">is</span><span class="punctuation">:</span> <span class="string">'word-count'</span> <span class="punctuation">})</span>
 					</span>.
 				</li>
@@ -197,7 +197,7 @@
 			<a href="#ShadowDOM" class="section-title">Shadow DOM</a>
 		</h1>
 		<p>
-			Важен аспект от уеб компонентите е енкапсулацията - възможността да запазим структура, стил и поведение
+			Важен аспект от уеб компонентите е енкапсулацията - възможността да запазим структура, стил и поведение,
 			скрити и отделени от останалия
 			код на страницата. По този начин няма да има конфликти между различни части и кодът може да остане красив и
 			чист. Shadow DOM е ключова
@@ -219,7 +219,7 @@
 	<span class="punctuation">&lt;</span><span class="tag">body</span><span class="punctuation">&gt;</span>
 		<span class="punctuation">&lt;</span><span class="tag">section</span><span class="punctuation">&gt;</span>
 			<span class="punctuation">&lt;</span><span class="tag">img</span> <span class="attr-name">src</span><span class="punctuation">=</span><span class="attr-value">"dinosaur.png"</span> <span class="attr-name">alt</span><span class="punctuation">=</span><span class="attr-value">"A red Tyrannosaurus Rex: A two legged dinosaur standing upright like a human, with small arms, and a large head with lots of sharp teeth."</span><span class="punctuation">&gt;</span>
-			<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>Here we will add a link to the <span class="punctuation">&lt;</span><span class="tag">a</span> <span class="attr-name">href</span><span class="attr-value"><span class="punctuation">=</span><span class="attr-value">"https://www.mozilla.org/"</span><span class="punctuation">&gt;</span>Mozilla homepage<span class="punctuation">&lt;/</span><span class="tag">a</span><span class="punctuation">&gt;&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span>
+			<span class="punctuation">&lt;</span><span class="tag">p</span><span class="punctuation">&gt;</span>Here we will add a link to the <span class="punctuation">&lt;</span><span class="tag">a</span> <span class="attr-name">href</span><span class="punctuation">=</span><span class="attr-value">"https://www.mozilla.org/"</span><span class="punctuation">&gt;</span>Mozilla homepage<span class="punctuation">&lt;/</span><span class="tag">a</span><span class="punctuation">&gt;&lt;/</span><span class="tag">p</span><span class="punctuation">&gt;</span>
 		<span class="punctuation">&lt;/</span><span class="tag">section</span><span class="punctuation">&gt;</span>
 	<span class="punctuation">&lt;/</span><span class="tag">body</span><span class="punctuation">&gt;</span>
 <span class="punctuation">&lt;/</span><span class="tag">html</span><span class="punctuation">&gt;</span></code></pre>
@@ -355,7 +355,7 @@ document<span class="punctuation">.</span>body<span class="punctuation">.</span>
 		<span class="inline-code">
 			<span class="punctuation">&lt;</span><span class="tag">slot</span><span class="punctuation">&gt;</span>
 		</span> елемент. 
-		Това е по-лиминирано откъм поддръжка, отколкото 
+		Това е по-лимитирано откъм поддръжка, отколкото 
 		<span class="inline-code">
 			<span class="punctuation">&lt;</span><span class="tag">template</span><span class="punctuation">&gt;</span>
 		</span>. 
@@ -384,7 +384,7 @@ document<span class="punctuation">.</span>body<span class="punctuation">.</span>
 		елемента със <span class="italic">slot</span> атрибут, чиято стойност съвпада с името на <span class="italic">slot</span> елемента, който искаме да попълним. Например:
 	</p>
 	<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
-	<span class="punctuation">&lt;</span><span class="tag">span</span> <span class="attr-name">slot</span><span class="punctuation">=</span><span class="attr-value">"my-text"</span><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span>Let's have some different text!<span class="punctuation">&lt;/</span><span class="tag">span</span><span class="punctuation">&gt;</span>
+	<span class="punctuation">&lt;</span><span class="tag">span</span> <span class="attr-name">slot</span><span class="punctuation">=</span><span class="attr-value">"my-text"</span><span class="punctuation">&gt;</span>Let's have some different text!<span class="punctuation">&lt;/</span><span class="tag">span</span><span class="punctuation">&gt;</span>
 <span class="punctuation">&lt;/</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span></code></pre>
 	<p>или</p>
 	<pre><code class="language-html"><span class="punctuation">&lt;</span><span class="tag">my-paragraph</span><span class="punctuation">&gt;</span>
